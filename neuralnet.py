@@ -32,6 +32,13 @@ def backward(X, y, z1, a1, z2, a2, W1, W2, b1, b2):
     return dW1, db1, dW2, db2
 
 
+def update_parameters(W1, b1, W2, b2, dW1, db1, dW2, db2, learning_rate):
+    W1 -= learning_rate * dW1
+    b1 -= learning_rate * db1
+    W2 -= learning_rate * dW2
+    b2 -= learning_rate * db2
+    return W1, b1, W2, b2
+
 def init_weights(input_size, hidden_size, output_size):
     W1 = np.random.randn(input_size, hidden_size) * np.sqrt(2 / input_size)
     b1 = np.zeros(hidden_size)
