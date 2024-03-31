@@ -8,10 +8,17 @@ from neuralnet import init_weights
 
 
 def main(args):
+    """
+    Main function for training and inference.
+
+    Args:
+        args: Command-line arguments.
+    """
     # Load data
-    X_train, y_train, X_test, num_classes = load_data(args.train_path, args.test_path)
+    X_train, y_train, X_test, num_classes = load_data(
+        args.train_path, args.test_path)
     print("Loaded train.csv and test.csv")
-    
+
     # Initialize weights
     input_size = X_train.shape[1]
     hidden_size = 128
@@ -26,7 +33,7 @@ def main(args):
     y_test = predict(X_test.values, W1, b1, W2, b2)
     # print(y_test.shape)
 
-    y_test =np.argmax(y_test, axis=1)
+    y_test = np.argmax(y_test, axis=1)
     image_ids = range(1, len(y_test) + 1)
     inference = pd.DataFrame({'ImageId': image_ids, 'Label': y_test})
 
@@ -38,7 +45,8 @@ def main(args):
     # Plot graph
     if args.plot == 1:
         histories_df = pd.DataFrame(histories)
-        histories_df_grouped = histories_df.groupby('epoch').agg(['mean', 'min', 'max'])
+        histories_df_grouped = histories_df.groupby(
+            'epoch').agg(['mean', 'min', 'max'])
         plot_training_history(histories_df_grouped)
 
 
